@@ -8,6 +8,15 @@ export const AddressForm = ({ onTabSwitch = () => {} }) => {  // ✅ Default fun
     const { register, handleSubmit, formState: { errors }} = useForm();
     const dispatch = useDispatch();
 
+    const onSubmit = (data) => {
+        dispatch(setAddress(data));
+
+        if (typeof onTabSwitch === "function") {  // ✅ Check before calling
+            onTabSwitch('Payment');
+        } else {
+            console.error("onTabSwitch is not a function!");
+        }
+    };
 
     return (
         <form className="md:w-2/3 md:mx-auto px-3 pt-1" onSubmit={handleSubmit(onSubmit)}>
